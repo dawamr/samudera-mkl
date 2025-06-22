@@ -1,0 +1,97 @@
+<x-admin>
+    @section('title','Data MKL')
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Data MKL</h3>
+            <div class="card-tools">
+                <a href="{{ route('admin.mkl.create') }}" class="btn btn-sm btn-info">Tambah MKL</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="mklTable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>NIK</th>
+                        <th>Nama Pribadi</th>
+                        <th>Nama MKL</th>
+                        <th>Nama PT MKL</th>
+                        <th>No. Telepon Pribadi</th>
+                        <th>No. Telepon Kantor</th>
+                        <th>Email Kantor</th>
+                        <th>NPWP Kantor</th>
+                        <th>MTKI Payment</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css">
+    @endsection
+
+    @section('js')
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
+            if (confirm('Apakah Anda yakin ingin menghapus data MKL ini?')) {
+                event.target.closest('form').submit();
+            }
+        }
+
+        $(function() {
+            var table = $('#mklTable').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: "{{ route('admin.mkl.index') }}",
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                columns: [
+                    {data: 'nik', name: 'nik'},
+                    {data: 'nama_pribadi', name: 'nama_pribadi'},
+                    {data: 'nama_mkl', name: 'nama_mkl'},
+                    {data: 'nama_pt_mkl', name: 'nama_pt_mkl'},
+                    {data: 'no_telepon_pribadi', name: 'no_telepon_pribadi'},
+                    {data: 'no_telepon_kantor', name: 'no_telepon_kantor'},
+                    {data: 'email_kantor', name: 'email_kantor'},
+                    {data: 'npwp_kantor', name: 'npwp_kantor'},
+                    {data: 'menggunakan_mtki_payment', name: 'menggunakan_mtki_payment'},
+                    {data: 'status_aktif', name: 'status_aktif'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
+            });
+        });
+    </script>
+    @endsection
+</x-admin>
