@@ -40,28 +40,28 @@
             </div>
         </div>
 
-            <div class="col-lg-6 col-6">
-                <div class="card">
+            <div class="col-md-6 col-12">
+                <div class="card" style="max-height: 400px;height: 400px;">
                     <div class="card-header">
                         <h3 class="card-title">Penggunaan MTKI Payment</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex justify-content-center align-items-center">
                         <canvas id="mtkiPaymentChart"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-6">
-                <div class="card">
+            <div class="col-md-6 col-12">
+                <div class="card" style="max-height: 400px;height: 400px;">
                     <div class="card-header">
                         <h3 class="card-title">Alasan Tidak Menggunakan MTKI Payment</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex justify-content-center align-items-center">
                         <canvas id="mtkiReasonChart"></canvas>
                     </div>
                 </div>
             </div>
 
-        @push('scripts')
+        @section('js')
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             // MTKI Payment Usage Chart
@@ -123,6 +123,6 @@
                     });
                 });
         </script>
-        @endpush
+        @endsection
     @endrole
 </div>
