@@ -12,8 +12,8 @@ class MklController extends Controller
     public function getMTKIPaymentStats()
     {
         $stats = [
-            'using_mtki' => mkl::where('menggunakan_mtki_payment', true)->count(),
-            'not_using_mtki' => mkl::where('menggunakan_mtki_payment', false)->count(),
+            'using_mtki' => mkl::where('menggunakan_mtki_payment', 'Ya')->count(),
+            'not_using_mtki' => mkl::where('menggunakan_mtki_payment', 'Tidak')->count(),
         ];
 
         return response()->json($stats);
@@ -21,7 +21,7 @@ class MklController extends Controller
 
     public function getMTKIReasonStats()
     {
-        $reasons = mkl::where('menggunakan_mtki_payment', false)
+        $reasons = mkl::where('menggunakan_mtki_payment', 'Tidak')
             ->select('alasan_tidak_menggunakan_mtki_payment')
             ->selectRaw('COUNT(*) as count')
             ->groupBy('alasan_tidak_menggunakan_mtki_payment')
@@ -39,7 +39,7 @@ class MklController extends Controller
             $query = mkl::query();
 
             return DataTables::of($query)
-                ->addColumn('action', function($item) {
+                ->addColumn('action', function ($item) {
                     return '
                         <div class="btn-group">
                             <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
@@ -92,15 +92,15 @@ class MklController extends Controller
             'file_npwp' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
-        if ($request->hasFile('file_ktp')) {
-            $ktpPath = $request->file('file_ktp')->store('mkl/ktp', 'public');
-            $validatedData['file_ktp'] = $ktpPath;
-        }
+            if ($request->hasFile('file_ktp')) {
+                $ktpPath = $request->file('file_ktp')->store('mkl/ktp', 'public');
+                $validatedData['file_ktp'] = $ktpPath;
+            }
 
-        if ($request->hasFile('file_npwp')) {
-            $npwpPath = $request->file('file_npwp')->store('mkl/npwp', 'public');
-            $validatedData['file_npwp'] = $npwpPath;
-        }
+            if ($request->hasFile('file_npwp')) {
+                $npwpPath = $request->file('file_npwp')->store('mkl/npwp', 'public');
+                $validatedData['file_npwp'] = $npwpPath;
+            }
 
             mkl::create($validatedData);
 
@@ -149,17 +149,17 @@ class MklController extends Controller
             'file_npwp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
-        if ($request->hasFile('file_ktp')) {
-            Storage::disk('public')->delete($mkl->file_ktp);
-            $ktpPath = $request->file('file_ktp')->store('mkl/ktp', 'public');
-            $validatedData['file_ktp'] = $ktpPath;
-        }
+            if ($request->hasFile('file_ktp')) {
+                Storage::disk('public')->delete($mkl->file_ktp);
+                $ktpPath = $request->file('file_ktp')->store('mkl/ktp', 'public');
+                $validatedData['file_ktp'] = $ktpPath;
+            }
 
-        if ($request->hasFile('file_npwp')) {
-            Storage::disk('public')->delete($mkl->file_npwp);
-            $npwpPath = $request->file('file_npwp')->store('mkl/npwp', 'public');
-            $validatedData['file_npwp'] = $npwpPath;
-        }
+            if ($request->hasFile('file_npwp')) {
+                Storage::disk('public')->delete($mkl->file_npwp);
+                $npwpPath = $request->file('file_npwp')->store('mkl/npwp', 'public');
+                $validatedData['file_npwp'] = $npwpPath;
+            }
 
             $mkl->update($validatedData);
 
