@@ -1,6 +1,6 @@
 <x-admin>
     @section('title','Tambah MKL')
-    <div class="card bg-white">
+    <div class="card">
         <div class="card-header">
             <h3 class="card-title">Tambah MKL</h3>
             <div class="card-tools">
