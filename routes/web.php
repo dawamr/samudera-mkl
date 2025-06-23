@@ -16,8 +16,9 @@ use Illuminate\Support\Str;
 */
 
 Route::get('/', function () {
-    redirect('/login');
+    return redirect('/login');
 });
+
 // Login with OTP Routes
 Route::prefix('/otp')->middleware('guest')->name('otp.')->controller(LoginWithOTPController::class)->group(function(){
     Route::get('/login','login')->name('login');

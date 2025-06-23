@@ -72,7 +72,7 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: "{{ route('admin.mkl.index') }}",
+                ajax: "{{ route('admin.mkl.index', [], true) }}",
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
