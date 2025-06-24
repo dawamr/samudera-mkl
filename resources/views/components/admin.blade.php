@@ -103,7 +103,7 @@
     </div>
     <!-- ./wrapper -->
     <footer class="main-footer">
-        <strong>Copyright © 2025 <a href="https://www.linkedin.com/in/thikritludvia/?originalSubdomain=id">Thikrit Ludvia</a>.</strong> All rights reserved.
+        <strong>Copyright © 2025 <a href="https://www.linkedin.com/in/thikrit-ludvia">Thikrit Ludvia</a>.</strong> All rights reserved.
     </footer>
     <!-- ./wrapper -->
 
