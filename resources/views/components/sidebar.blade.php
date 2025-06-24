@@ -39,7 +39,7 @@
                     class="nav-link {{ Route::is('admin.mkl.index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-list-alt"></i>
                     <p>MKL
-                        <span class="badge badge-warning right">{{ isset($MTKCount) ? $MTKCount : 0 }}</span>
+                        <span class="badge badge-warning right">{{ $MTKCount }}</span>
                     </p>
                 </a>
             </li>
