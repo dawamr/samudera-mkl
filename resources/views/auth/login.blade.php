@@ -4,12 +4,18 @@
     @endsection
     <div class="login-box">
         <!-- /.login-logo -->
+        {{-- image --}}
+        <div class="text-center mb-3">
+            <img src="{{ asset('pt-samudera-indonesia.jpg') }}" class="img-responsive img-fluid" style="width: 200px; height:auto" alt="User Image">
+        </div>
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
                 <a href="/" class="h1"><b>{{ config('app.name') }}</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
+
+
 
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
