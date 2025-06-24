@@ -35,6 +35,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         Route::get('mkl-payment-stats', [MklController::class, 'getMTKIPaymentStats'])->name('mkl.payment.stats');
         Route::get('mkl-reason-stats', [MklController::class, 'getMTKIReasonStats'])->name('mkl.reason.stats');
         Route::get('mkl-filter-data', [MklController::class, 'getFilteredData'])->name('mkl.filter.data');
+        Route::get('mkl-data-by-reason', [MklController::class, 'getDataByReason'])->name('mkl.data.by.reason');
     });
 
 });
