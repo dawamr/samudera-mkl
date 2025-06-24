@@ -9,6 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class MklController extends Controller
 {
+    // ini untuk dashboard
     public function getMTKIPaymentStats()
     {
         $stats = [
@@ -19,6 +20,7 @@ class MklController extends Controller
         return response()->json($stats);
     }
 
+    // ini untuk dashboard
     public function getMTKIReasonStats()
     {
         $reasons = mkl::where('menggunakan_mtki_payment', 'Tidak')
@@ -28,6 +30,37 @@ class MklController extends Controller
             ->get();
 
         return response()->json($reasons);
+    }
+
+    public function getFilteredData(Request $request)
+    {
+        $menggunakanMTKI = $request->input('menggunakan_mtki');
+
+        $data = mkl::where('menggunakan_mtki_payment', $menggunakanMTKI)
+                   ->select([
+                       'nik', 'nama_pribadi', 'nama_mkl', 'nama_pt_mkl',
+                       'email_kantor', 'no_telepon_kantor', 'status_aktif',
+                       'alasan_tidak_menggunakan_mtki_payment'
+                   ])
+                   ->orderBy('nama_pribadi')
+                   ->get();
+
+        return response()->json([
+            'data' => $data,
+            'total' => $data->count()
+        ]);
+    }
+
+    public function getTotalMKL()
+    {
+        $total = mkl::count();
+        return response()->json($total);
+    }
+
+    public function getTotalPenggunaanMTKI($isPenggunaan = true)
+    {
+        $total = mkl::where('menggunakan_mtki_payment', $isPenggunaan ? 'Ya' : 'Tidak')->count();
+        return response()->json($total);
     }
 
     /**

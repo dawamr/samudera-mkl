@@ -172,6 +172,7 @@
         }
     </script>
     <x-alert />
+    @stack('scripts')
     @yield('js')
 </body>
 
