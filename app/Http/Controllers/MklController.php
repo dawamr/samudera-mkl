@@ -120,6 +120,40 @@ class MklController extends Controller
     }
 
     /**
+     * Mendapatkan data MKL berdasarkan alasan tidak menggunakan MTKI
+     *
+     * Method ini digunakan untuk modal yang menampilkan data MKL
+     * berdasarkan alasan tertentu yang diklik dari bar chart
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @route GET /admin/mkl/data-by-reason
+     */
+    public function getDataByReason(Request $request)
+    {
+        // Mendapatkan parameter alasan dari request
+        $alasan = $request->input('alasan');
+
+        // Query data berdasarkan alasan tertentu
+        $data = mkl::where('menggunakan_mtki_payment', 'Tidak')
+                   ->where('alasan_tidak_menggunakan_mtki_payment', $alasan)
+                   ->select([
+                       'nik', 'nama_pribadi', 'nama_mkl', 'nama_pt_mkl',
+                       'email_kantor', 'no_telepon_kantor', 'status_aktif',
+                       'alasan_tidak_menggunakan_mtki_payment'
+                   ])
+                   ->orderBy('nama_pribadi') // Mengurutkan berdasarkan nama
+                   ->get();
+
+        // Mengembalikan data dalam format yang sesuai untuk DataTables
+        return response()->json([
+            'data' => $data,
+            'total' => $data->count(),
+            'alasan' => $alasan
+        ]);
+    }
+
+    /**
      * Menampilkan daftar semua data MKL dalam DataTables
      *
      * Method ini menangani 2 jenis request:
