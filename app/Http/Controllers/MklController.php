@@ -228,17 +228,11 @@ class MklController extends Controller
             $validatedData = $request->validate([
                 'nik' => 'required|unique:mkls,nik', // NIK harus unik
                 'nama_pribadi' => 'required',
-                'nama_mkl' => 'required',
-                'nama_pt_mkl' => 'required',
-                'no_telepon_pribadi' => 'required',
-                'no_telepon_kantor' => 'required',
-                'email_kantor' => 'required|email|unique:mkls,email_kantor', // Email harus unik dan valid
-                'npwp_kantor' => 'required|unique:mkls,npwp_kantor', // NPWP harus unik
-                'menggunakan_mtki_payment' => 'required|boolean',
+                'menggunakan_mtki_payment' => 'boolean',
                 'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,0', // Wajib jika tidak menggunakan MTKI
-                'status_aktif' => 'required|boolean',
-                'file_ktp' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // File KTP max 2MB
-                'file_npwp' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // File NPWP max 2MB
+                'status_aktif' => 'boolean',
+                'file_ktp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // File KTP max 2MB
+                'file_npwp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // File NPWP max 2MB
             ]);
 
             // Handle upload file KTP
@@ -321,14 +315,6 @@ class MklController extends Controller
             // Validasi input dengan pengecualian untuk data yang sedang diedit
             $validatedData = $request->validate([
                 'nama_pribadi' => 'required',
-                'nama_mkl' => 'required',
-                'nama_pt_mkl' => 'required',
-                'no_telepon_pribadi' => 'required',
-                'no_telepon_kantor' => 'required',
-                // Email harus unik kecuali untuk data yang sedang diedit
-                'email_kantor' => 'required|email|unique:mkls,email_kantor,' . $mkl->nik . ',nik',
-                // NPWP harus unik kecuali untuk data yang sedang diedit
-                'npwp_kantor' => 'required|unique:mkls,npwp_kantor,' . $mkl->nik . ',nik',
                 'menggunakan_mtki_payment' => 'required|boolean',
                 'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,0',
                 'status_aktif' => 'required|boolean',
