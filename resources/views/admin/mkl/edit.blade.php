@@ -123,7 +123,7 @@
     <script>
         $(function() {
             $('#menggunakan_mtki_payment').change(function() {
-                if ($(this).val() == '0') {
+                if ($(this).val() == 'TIDAK') {
                     $('#alasan_container').show();
                     $('#alasan_tidak_menggunakan_mtki_payment').prop('', true);
                 } else {
