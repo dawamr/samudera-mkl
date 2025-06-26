@@ -67,8 +67,8 @@
                 <div class="form-group">
                     <label for="menggunakan_mtki_payment">Menggunakan MTKI Payment</label>
                     <select class="form-control @error('menggunakan_mtki_payment') is-invalid @enderror" id="menggunakan_mtki_payment" name="menggunakan_mtki_payment" >
-                        <option value="YA" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == 'YA' ? 'selected' : '' }}>Ya</option>
-                        <option value="TIDAK" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == 'TIDAK' ? 'selected' : '' }}>Tidak</option>
+                        <option value="YA" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == 'YA' ? 'selected' : '' }}>YA</option>
+                        <option value="TIDAK" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == 'TIDAK' ? 'selected' : '' }}>TIDAK</option>
                     </select>
                     @error('menggunakan_mtki_payment')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -125,10 +125,10 @@
             $('#menggunakan_mtki_payment').change(function() {
                 if ($(this).val() == 'TIDAK') {
                     $('#alasan_container').show();
-                    $('#alasan_tidak_menggunakan_mtki_payment').prop('', true);
+                    $('#alasan_tidak_menggunakan_mtki_payment').prop('required', true);
                 } else {
                     $('#alasan_container').hide();
-                    $('#alasan_tidak_menggunakan_mtki_payment').prop('', false);
+                    $('#alasan_tidak_menggunakan_mtki_payment').prop('required', false);
                 }
             }).trigger('change');
         });
