@@ -34,8 +34,8 @@ class MklController extends Controller
     {
         // Menghitung jumlah MKL berdasarkan penggunaan MTKI Payment
         $stats = [
-            'using_mtki' => mkl::where('menggunakan_mtki_payment', 'Ya')->count(),
-            'not_using_mtki' => mkl::where('menggunakan_mtki_payment', 'Tidak')->count(),
+            'using_mtki' => mkl::where('menggunakan_mtki_payment', 'YA')->count(),
+            'not_using_mtki' => mkl::where('menggunakan_mtki_payment', 'TIDAK')->count(),
         ];
 
         // Mengembalikan data dalam format JSON untuk Chart.js
@@ -54,7 +54,7 @@ class MklController extends Controller
     public function getMTKIReasonStats()
     {
         // Query untuk mendapatkan alasan dan jumlahnya
-        $reasons = mkl::where('menggunakan_mtki_payment', 'Tidak')
+        $reasons = mkl::where('menggunakan_mtki_payment', 'TIDAK')
             ->select('alasan_tidak_menggunakan_mtki_payment')
             ->selectRaw('COUNT(*) as count') // Menghitung jumlah per alasan
             ->groupBy('alasan_tidak_menggunakan_mtki_payment') // Mengelompokkan berdasarkan alasan
@@ -115,7 +115,7 @@ class MklController extends Controller
      */
     public function getTotalPenggunaanMTKI($isPenggunaan = true)
     {
-        $total = mkl::where('menggunakan_mtki_payment', $isPenggunaan ? 'Ya' : 'Tidak')->count();
+        $total = mkl::where('menggunakan_mtki_payment', $isPenggunaan ? 'YA' : 'TIDAK')->count();
         return response()->json($total);
     }
 
@@ -135,7 +135,7 @@ class MklController extends Controller
         $alasan = $request->input('alasan');
 
         // Query data berdasarkan alasan tertentu
-        $data = mkl::where('menggunakan_mtki_payment', 'Tidak')
+        $data = mkl::where('menggunakan_mtki_payment', 'TIDAK')
                    ->where('alasan_tidak_menggunakan_mtki_payment', $alasan)
                    ->select([
                        'nik', 'nama_pribadi', 'nama_mkl', 'nama_pt_mkl',
@@ -228,8 +228,8 @@ class MklController extends Controller
             $validatedData = $request->validate([
                 'nik' => 'required|unique:mkls,nik', // NIK harus unik
                 'nama_pribadi' => 'required',
-                'menggunakan_mtki_payment' => 'boolean',
-                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,0', // Wajib jika tidak menggunakan MTKI
+                'menggunakan_mtki_payment' => 'in:YA,TIDAK',
+                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,TIDAK', // Wajib jika tidak menggunakan MTKI
                 'status_aktif' => 'boolean',
                 'file_ktp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // File KTP max 2MB
                 'file_npwp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // File NPWP max 2MB
@@ -315,8 +315,8 @@ class MklController extends Controller
             // Validasi input dengan pengecualian untuk data yang sedang diedit
             $validatedData = $request->validate([
                 'nama_pribadi' => 'required',
-                'menggunakan_mtki_payment' => 'required|boolean',
-                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,0',
+                'menggunakan_mtki_payment' => 'required|in:YA,TIDAK',
+                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,TIDAK',
                 'status_aktif' => 'required|boolean',
                 // File bersifat optional saat update
                 'file_ktp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
