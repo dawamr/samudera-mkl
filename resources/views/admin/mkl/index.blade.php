@@ -1,5 +1,5 @@
 <x-admin>
-    @section('title','Data MKL')
+    @section('title','Data EMKL')
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
@@ -20,9 +20,9 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data MKL</h3>
+            <h3 class="card-title">Data EMKL</h3>
             <div class="card-tools">
-                <a href="{{ route('admin.mkl.create') }}" class="btn btn-sm btn-info">Tambah MKL</a>
+                <a href="{{ route('admin.mkl.create') }}" class="btn btn-sm btn-info">Tambah EMKL</a>
             </div>
         </div>
         <div class="card-body">
@@ -31,8 +31,8 @@
                     <tr>
                         <th>NIK</th>
                         <th>Nama Pribadi</th>
-                        <th>Nama MKL</th>
-                        <th>Nama PT MKL</th>
+                        <th>Nama EMKL</th>
+                        <th>Nama PT EMKL</th>
                         <th>No. Telepon Pribadi</th>
                         <th>No. Telepon Kantor</th>
                         <th>Email Kantor</th>
@@ -62,7 +62,7 @@
     <script>
         function confirmDelete(event) {
             event.preventDefault();
-            if (confirm('Apakah Anda yakin ingin menghapus data MKL ini?')) {
+            if (confirm('Apakah Anda yakin ingin menghapus data EMKL ini?')) {
                 event.target.closest('form').submit();
             }
         }
