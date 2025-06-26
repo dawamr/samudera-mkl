@@ -67,8 +67,8 @@
                 <div class="form-group">
                     <label for="menggunakan_mtki_payment">Menggunakan MTKI Payment</label>
                     <select class="form-control @error('menggunakan_mtki_payment') is-invalid @enderror" id="menggunakan_mtki_payment" name="menggunakan_mtki_payment" >
-                        <option value="1" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == '1' ? 'selected' : '' }}>Ya</option>
-                        <option value="0" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == '0' ? 'selected' : '' }}>Tidak</option>
+                        <option value="YA" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == 'YA' ? 'selected' : '' }}>Ya</option>
+                        <option value="TIDAK" {{ old('menggunakan_mtki_payment', $mkl->menggunakan_mtki_payment) == 'TIDAK' ? 'selected' : '' }}>Tidak</option>
                     </select>
                     @error('menggunakan_mtki_payment')
                         <div class="invalid-feedback">{{ $message }}</div>
