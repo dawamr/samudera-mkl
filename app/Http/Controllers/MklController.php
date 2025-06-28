@@ -226,11 +226,17 @@ class MklController extends Controller
         try {
             // Validasi input dengan aturan yang ketat
             $validatedData = $request->validate([
-                'nik' => 'required|unique:mkls,nik', // NIK harus unik
-                'nama_pribadi' => 'required',
-                'menggunakan_mtki_payment' => 'in:YA,TIDAK',
-                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,TIDAK', // Wajib jika tidak menggunakan MTKI
-                'status_aktif' => 'boolean',
+                'nik' => 'required|string|size:16|unique:mkls,nik', // NIK harus 16 digit dan unik
+                'nama_pribadi' => 'required|string|max:255',
+                'nama_mkl' => 'nullable|string|max:255',
+                'nama_pt_mkl' => 'nullable|string|max:255',
+                'no_telepon_pribadi' => 'nullable|string|max:20|regex:/^[0-9\-\+\(\)\s]+$/',
+                'no_telepon_kantor' => 'nullable|string|max:20|regex:/^[0-9\-\+\(\)\s]+$/',
+                'email_kantor' => 'nullable|email|max:255',
+                'npwp_kantor' => 'nullable|string|size:15|regex:/^[0-9\.\-]+$/', // Format NPWP
+                'menggunakan_mtki_payment' => 'required|in:YA,TIDAK',
+                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,TIDAK|nullable|string', // Wajib jika tidak menggunakan MTKI
+                'status_aktif' => 'required|in:0,1',
                 'file_ktp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // File KTP max 2MB
                 'file_npwp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048', // File NPWP max 2MB
             ]);
@@ -314,10 +320,16 @@ class MklController extends Controller
         try {
             // Validasi input dengan pengecualian untuk data yang sedang diedit
             $validatedData = $request->validate([
-                'nama_pribadi' => 'required',
+                'nama_pribadi' => 'required|string|max:255',
+                'nama_mkl' => 'nullable|string|max:255',
+                'nama_pt_mkl' => 'nullable|string|max:255',
+                'no_telepon_pribadi' => 'nullable|string|max:20|regex:/^[0-9\-\+\(\)\s]+$/',
+                'no_telepon_kantor' => 'nullable|string|max:20|regex:/^[0-9\-\+\(\)\s]+$/',
+                'email_kantor' => 'nullable|email|max:255',
+                'npwp_kantor' => 'nullable|string|size:15|regex:/^[0-9\.\-]+$/', // Format NPWP
                 'menggunakan_mtki_payment' => 'required|in:YA,TIDAK',
-                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,TIDAK',
-                'status_aktif' => 'required|boolean',
+                'alasan_tidak_menggunakan_mtki_payment' => 'required_if:menggunakan_mtki_payment,TIDAK|nullable|string',
+                'status_aktif' => 'required|in:0,1',
                 // File bersifat optional saat update
                 'file_ktp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
                 'file_npwp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
