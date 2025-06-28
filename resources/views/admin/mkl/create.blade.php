@@ -12,7 +12,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="nik">NIK</label>
-                    <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ old('nik') }}" required>
+                    <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik" value="{{ old('nik') }}" maxlength="16" pattern="[0-9]{16}" title="NIK harus 16 digit angka" required>
                     @error('nik')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -40,14 +40,14 @@
                 </div>
                 <div class="form-group">
                     <label for="no_telepon_pribadi">No. Telepon Pribadi</label>
-                    <input type="text" class="form-control @error('no_telepon_pribadi') is-invalid @enderror" id="no_telepon_pribadi" name="no_telepon_pribadi" value="{{ old('no_telepon_pribadi') }}" >
+                    <input type="tel" class="form-control @error('no_telepon_pribadi') is-invalid @enderror" id="no_telepon_pribadi" name="no_telepon_pribadi" value="{{ old('no_telepon_pribadi') }}" maxlength="20" pattern="[0-9\-\+\(\)\s]+" title="Masukkan nomor telepon yang valid" >
                     @error('no_telepon_pribadi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="no_telepon_kantor">No. Telepon Kantor</label>
-                    <input type="text" class="form-control @error('no_telepon_kantor') is-invalid @enderror" id="no_telepon_kantor" name="no_telepon_kantor" value="{{ old('no_telepon_kantor') }}" >
+                    <input type="tel" class="form-control @error('no_telepon_kantor') is-invalid @enderror" id="no_telepon_kantor" name="no_telepon_kantor" value="{{ old('no_telepon_kantor') }}" maxlength="20" pattern="[0-9\-\+\(\)\s]+" title="Masukkan nomor telepon yang valid" >
                     @error('no_telepon_kantor')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -61,14 +61,15 @@
                 </div>
                 <div class="form-group">
                     <label for="npwp_kantor">NPWP Kantor</label>
-                    <input type="text" class="form-control @error('npwp_kantor') is-invalid @enderror" id="npwp_kantor" name="npwp_kantor" value="{{ old('npwp_kantor') }}" >
+                    <input type="text" class="form-control @error('npwp_kantor') is-invalid @enderror" id="npwp_kantor" name="npwp_kantor" value="{{ old('npwp_kantor') }}" maxlength="15" pattern="[0-9\.\-]+" placeholder="00.000.000.0-000.000" title="Format NPWP: 00.000.000.0-000.000" >
                     @error('npwp_kantor')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="menggunakan_mtki_payment">Menggunakan MTKI Payment</label>
-                    <select class="form-control @error('menggunakan_mtki_payment') is-invalid @enderror" id="menggunakan_mtki_payment" name="menggunakan_mtki_payment" >
+                    <select class="form-control @error('menggunakan_mtki_payment') is-invalid @enderror" id="menggunakan_mtki_payment" name="menggunakan_mtki_payment" required>
+                        <option value="">-- Pilih --</option>
                         <option value="YA" {{ old('menggunakan_mtki_payment') == 'YA' ? 'selected' : '' }}>YA</option>
                         <option value="TIDAK" {{ old('menggunakan_mtki_payment') == 'TIDAK' ? 'selected' : '' }}>TIDAK</option>
                     </select>
@@ -85,7 +86,8 @@
                 </div>
                 <div class="form-group">
                     <label for="status_aktif">Status Aktif</label>
-                    <select class="form-control @error('status_aktif') is-invalid @enderror" id="status_aktif" name="status_aktif" >
+                    <select class="form-control @error('status_aktif') is-invalid @enderror" id="status_aktif" name="status_aktif" required>
+                        <option value="">-- Pilih --</option>
                         <option value="1" {{ old('status_aktif') == '1' ? 'selected' : '' }}>Aktif</option>
                         <option value="0" {{ old('status_aktif') == '0' ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
