@@ -16,7 +16,7 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="{{ route('admin.role.index') }}"
                     class="nav-link {{ Route::is('admin.role.index') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-user-tag"></i>
@@ -24,7 +24,7 @@
                         <span class="badge badge-success right">{{ $RoleCount }}</span>
                     </p>
                 </a>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item">
                 <a href="{{ route('admin.permission.index') }}"
                     class="nav-link {{ Route::is('admin.permission.index') ? 'active' : '' }}">
