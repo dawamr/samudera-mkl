@@ -75,9 +75,27 @@
                 ajax: "{{ route('admin.mkl.index', [], true) }}",
                 dom: 'Blfrtip',
                 buttons: [
-                    'copy',
-                    'csv',
-                    'excel',
+                    {
+                        extend: 'copy',
+                        title: 'Data EMKL',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude action column
+                        },
+                    },
+                    {
+                        extend: 'csv',
+                        title: 'Data EMKL',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude action column
+                        },
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'Data EMKL',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude action column
+                        },
+                    },
                     {
                         extend: 'pdf',
                         orientation: 'landscape',
