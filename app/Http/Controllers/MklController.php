@@ -383,7 +383,7 @@ class MklController extends Controller
     {
         try {
             // Hapus file KTP dan NPWP dari storage/app/public/
-            Storage::disk('public')->delete([$mkl->file_ktp, $mkl->file_npwp]);
+            // Storage::disk('public')->delete([$mkl->file_ktp, $mkl->file_npwp]);
 
             // Hapus data dari database
             $mkl->delete();
