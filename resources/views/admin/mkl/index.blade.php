@@ -81,7 +81,7 @@
                     {
                         extend: 'pdf',
                         orientation: 'landscape',
-                        pageSize: 'A4',
+                        pageSize: 'LETTER',
                         title: 'Data EMKL',
                         exportOptions: {
                             columns: ':not(:last-child)' // Exclude action column
@@ -90,31 +90,31 @@
                             // Header styling
                             doc.styles.title = {
                                 color: '#333',
-                                fontSize: '16',
+                                fontSize: '12',
                                 alignment: 'center',
-                                margin: [0, 0, 0, 20]
+                                margin: [0, 10, 10, 10]
                             };
 
                             // Table styling
                             doc.styles.tableHeader = {
                                 bold: true,
-                                fontSize: 11,
+                                fontSize: 8,
                                 color: 'white',
                                 fillColor: '#6c757d',
                                 alignment: 'center'
                             };
 
                             doc.styles.tableBodyEven = {
-                                fontSize: 9,
+                                fontSize: 7,
                                 fillColor: '#f8f9fa'
                             };
 
                             doc.styles.tableBodyOdd = {
-                                fontSize: 9
+                                fontSize: 7
                             };
 
                             // Page margins
-                            doc.pageMargins = [20, 60, 20, 30];
+                            doc.pageMargins = [20, 40, 20, 30];
 
                             // Add export date in footer
                             doc.content.push({
@@ -131,7 +131,7 @@
                             });
 
                             doc.styles.footer = {
-                                fontSize: 8,
+                                fontSize: 7,
                                 color: '#666'
                             };
                         }
@@ -144,7 +144,7 @@
                         },
                         customize: function(win) {
                             $(win.document.body)
-                                .css('font-size', '9pt')
+                                .css('font-size', '8pt')
                                 .prepend(
                                     '<div style="text-align:center;"><h3>Data EMKL</h3><p>Dicetak pada: ' +
                                     new Date().toLocaleDateString('id-ID') + '</p></div>'
