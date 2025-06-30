@@ -73,10 +73,111 @@
                 serverSide: true,
                 responsive: true,
                 ajax: "{{ route('admin.mkl.index', [], true) }}",
-                dom: 'Bfrtip',
+                dom: 'Blfrtip',
                 buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
+                    'copy',
+                    'csv',
+                    'excel',
+                    {
+                        extend: 'pdf',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        title: 'Data EMKL',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude action column
+                        },
+                        customize: function(doc) {
+                            // Header styling
+                            doc.styles.title = {
+                                color: '#333',
+                                fontSize: '16',
+                                alignment: 'center',
+                                margin: [0, 0, 0, 20]
+                            };
+
+                            // Table styling
+                            doc.styles.tableHeader = {
+                                bold: true,
+                                fontSize: 11,
+                                color: 'white',
+                                fillColor: '#6c757d',
+                                alignment: 'center'
+                            };
+
+                            doc.styles.tableBodyEven = {
+                                fontSize: 9,
+                                fillColor: '#f8f9fa'
+                            };
+
+                            doc.styles.tableBodyOdd = {
+                                fontSize: 9
+                            };
+
+                            // Page margins
+                            doc.pageMargins = [20, 60, 20, 30];
+
+                            // Add export date in footer
+                            doc.content.push({
+                                text: 'Diekspor pada: ' + new Date().toLocaleDateString('id-ID', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                }),
+                                style: 'footer',
+                                alignment: 'right',
+                                margin: [0, 10, 0, 0]
+                            });
+
+                            doc.styles.footer = {
+                                fontSize: 8,
+                                color: '#666'
+                            };
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Data EMKL',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude action column
+                        },
+                        customize: function(win) {
+                            $(win.document.body)
+                                .css('font-size', '9pt')
+                                .prepend(
+                                    '<div style="text-align:center;"><h3>Data EMKL</h3><p>Dicetak pada: ' +
+                                    new Date().toLocaleDateString('id-ID') + '</p></div>'
+                                );
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
                 ],
+                pageLength: 10,
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, "All"]
+                ],
+                language: {
+                    lengthMenu: "<br><b>Tampilkan _MENU_ data per halaman</b>",
+                    search: "<b>Cari:</b>",
+                    paginate: {
+                        first: "<b>Pertama</b>",
+                        last: "Terakhir",
+                        next: "Selanjutnya",
+                        previous: "Sebelumnya"
+                    },
+                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+                    infoFiltered: "(disaring dari _MAX_ total data)",
+                    emptyTable: "Tidak ada data yang tersedia",
+                    loadingRecords: "Memuat...",
+                    processing: "Memproses...",
+                    zeroRecords: "Tidak ada data yang cocok"
+                },
                 columns: [
                     {data: 'nik', name: 'nik'},
                     {data: 'nama_pribadi', name: 'nama_pribadi'},
